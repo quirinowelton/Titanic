@@ -16,14 +16,13 @@ dados_cabine
 dados.drop(['Cabin'], axis=1, inplace=True)
 #%%
 import numpy as np
-#Transformar em log para ver no grafico
-
+dados['tamanho_familia'] = dados['SibSp'] + dados['Parch'] + 1 #Criando uma coluna com o tamanho da familia
+dados['Fare_por_pessoa'] = dados['Fare'] / dados['tamanho_famailia'] #criando uma coluna com a taxa por pessoa
 
 #%%
-import matplotlib.pyplot as plt
-
-plt.figure(figsize=(12, 5))
-
-plt.hist(dados, edgecolor='black')
-plt.title('Distribuição Original (Assimétrica)')
-plt.xlabel('Preço')
+#Analisar a variancia entre as taxas, qual a menor a maior e quanto varia
+dados_taxa = dados[['tamanho_familia','Fare_por_pessoa']].copy()
+#%%
+dados[['Name','Sex']] = dados[['Name','Sex']].apply(lambda x: x.str.upper())
+dados.columns = dados.columns.str.upper()
+dados
